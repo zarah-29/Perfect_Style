@@ -49,7 +49,10 @@
                         </div>
                         <a href="#" id="vaciar-carrito" class="btn-2">Vaciar Carrito</a>
                         <a href="pago.html" id="finalizar-compra" class="btn-2">Finalizar Compra</a>
-                    </div>
+                        <div class="carrito-total">
+                             <p>Total: <span id="total-carrito">$0.00</span></p>
+                        </div>
+                  </div>
                </li>
            </div>
         </div>
@@ -787,6 +790,7 @@
         </div>
     </main>
 <script src="script.js"></script>
+
 <div id="formulario-registro" class="registro-container" style="display: none;">
     <div class="registro-form">
         <span id="cerrar-formulario" class="cerrar">&times;</span>
@@ -795,10 +799,63 @@
             <input id="nombre" type="text" placeholder="Nombre" required>
             <input id="email" type="email" placeholder="Correo" required>
             <input id="password" type="password" placeholder="Contraseña" required>
+            <input id="direccion" type="text" placeholder="Dirección" required>
+            <input id="referencia" type="text" placeholder="Referencia (ej: cerca de una tienda)" required>
             <button type="submit" class="btn-1">Registrarse</button>
         </form>
     </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const usuarios = [];
+
+    document.getElementById('abrir-login').addEventListener('click', function(event) {
+        event.preventDefault();
+        document.getElementById('formulario-registro').style.display = 'flex';
+    });
+
+    document.getElementById('cerrar-formulario').addEventListener('click', function() {
+        document.getElementById('formulario-registro').style.display = 'none';
+    });
+
+    document.getElementById('registro-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const nombre = document.getElementById('nombre').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const direccion = document.getElementById('direccion').value.trim();
+        const referencia = document.getElementById('referencia').value.trim();
+
+        if (!nombre || !email || !password || !direccion || !referencia) {
+            alert("Por favor, completa todos los campos.");
+            return;
+        }
+
+        const existe = usuarios.some(usuario => usuario.email === email);
+        if (existe) {
+            alert("Este correo ya está registrado.");
+            return;
+        }
+
+        const nuevoUsuario = {
+            nombre,
+            email,
+            password,
+            direccion,
+            referencia
+        };
+
+        usuarios.push(nuevoUsuario);
+        console.log("Usuarios registrados:", usuarios);
+
+        alert("¡Registro exitoso!");
+        document.getElementById('registro-form').reset();
+        document.getElementById('formulario-registro').style.display = 'none';
+    });
+});
+</script>
 <div id="modalInfo" class="modal">
    <div class="modal-content">
        <span id="cerrarInfo" class="close">&times;</span>
@@ -846,49 +903,7 @@ form.onsubmit = function (e) {
   modal.classList.remove('show');
 };
 </script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const usuarios = [];
 
-    document.getElementById('abrir-login').addEventListener('click', function(event) {
-        event.preventDefault();
-        document.getElementById('formulario-registro').style.display = 'flex';
-    });
-
-    document.getElementById('cerrar-formulario').addEventListener('click', function() {
-        document.getElementById('formulario-registro').style.display = 'none';
-    });
-
-    document.getElementById('registro-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const nombre = document.getElementById('nombre').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value.trim();
-
-        if (!nombre || !email || !password) {
-            alert("Por favor, completa todos los campos.");
-            return;
-        }
-
-        const existe = usuarios.some(usuario => usuario.email === email);
-        if (existe) {
-            alert("Este correo ya está registrado.");
-            return;
-        }
-
-        const nuevoUsuario = { nombre, email, password };
-        usuarios.push(nuevoUsuario);
-
-        console.log("Usuarios registrados:", usuarios);
-
-        alert("¡Registro exitoso!");
-
-        document.getElementById('registro-form').reset();
-        document.getElementById('formulario-registro').style.display = 'none';
-    });
-});
-</script>
 <div id="ventanaDescripcion" class="ventana">
   <div class="ventana-contenido">
     <span class="cerrar" onclick="cerrarVentana()">&times;</span>
@@ -973,10 +988,10 @@ window.onclick = function(event) {
        <a href="https://whatsapp.com/channel/0029Vb5oG4QGOj9hqED5tV3c" target="_blank">
           <img src="whatsapp.png" alt="WhatsApp" width="30">
        </a>
-       <a href="https://www.instagram.com/perfect_style_makeup7?utm_source=qr&igsh=MTE3aWNiZzM0MmoydA== " target="_blank">
+       <a href="https://www.instagram.com/perfect_style_makeup7?igsh=MTE3aWNiZzM0MmoydA==" target="_blank">
           <img src="instagram.png" alt="Instagram" width="30">
        </a>
-       <a href="https://www.facebook.com/groups/1736799073579232/?ref=share&mibextid=KtfwRi" target="_blank">
+       <a href="https://www.facebook.com/share/1FA2dJz2Jb/" target="_blank">
           <img src="facebook1.png" alt="Facebook" width="30">
        </a>
   </div>
