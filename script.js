@@ -81,6 +81,7 @@ function vaciarCarrito() {
     }
 
     localStorage.setItem('total', '0.00');
+    document.getElementById('total-carrito').textContent = "$0.00";
     return false;
 }
 
@@ -93,9 +94,7 @@ function actualizarTotal() {
     });
 
     localStorage.setItem('total', total.toFixed(2));
+
+    //Contenido visible del total en el carrito
+    document.getElementById('total-carrito').textContent = `$${total.toFixed(2)}`;
 }
-
-
-
-
-
